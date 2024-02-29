@@ -2,6 +2,7 @@ package com.teamaejung.basicscodelab
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.animateContentSize
@@ -127,17 +128,62 @@ private fun CardContent(name: String) {
                 .weight(1f)
                 .padding(12.dp)
         ) {
-            Text(text = "Hello, ")
+            Text(text = "CoroutineTest, ")
             Text(
                 text = name, style = MaterialTheme.typography.headlineMedium.copy(
                     fontWeight = FontWeight.ExtraBold
                 )
             )
             if (expanded) {
-                Text(
-                    text = ("Composem ipsum color sit lazy, " +
-                            "padding theme elit, sed do bouncy. ").repeat(4),
-                )
+                when(name) {
+                    "0" -> {
+                        val syncTest = SyncTest()
+                        val printedLines = syncTest.main()
+
+                        printedLines.map {
+                            Text(text = it)
+                        }
+                    }
+                    "1" -> {
+                        val asyncTest = AsyncTest()
+                        val printedLines = asyncTest.main()
+
+                        printedLines.map {
+                            Text(text = it)
+                        }
+                    }
+                    "2" -> {
+                        val exceptionTest = ExceptionTest()
+                        val printedLines = exceptionTest.main()
+
+                        printedLines.map {
+                            Text(text = it)
+                        }
+                    }
+                    "3" -> {
+                        val cancleTest = CancleTest()
+                        val printedLines = cancleTest.main()
+
+                        printedLines.map {
+                            Text(text = it)
+                        }
+                    }
+                    "4" -> {
+                        val dispatcherTest = DispatcherTest()
+                        val printedLines = dispatcherTest.main()
+
+                        printedLines.map {
+                            Text(text = it)
+                        }
+                    }
+                    else -> {
+                        Text(
+                            text = ("Composem ipsum color sit lazy, " +
+                                    "padding theme elit, sed do bouncy. ").repeat(4),
+                        )
+                    }
+                }
+
             }
         }
         IconButton(onClick = { expanded = !expanded }) {
@@ -157,7 +203,7 @@ private fun CardContent(name: String) {
     showBackground = true,
     widthDp = 320,
     uiMode = UI_MODE_NIGHT_YES,
-    name = "GreetingPrevieDark"
+    name = "GreetingPreviewDark"
 )
 @Preview(showBackground = true, widthDp = 320)
 @Composable
